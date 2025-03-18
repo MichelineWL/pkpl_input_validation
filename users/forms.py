@@ -47,3 +47,28 @@ class UserForm(forms.Form):
         min_length=5,
         max_length=1000
     )
+
+    # Status Perkawinan (Predefined Value)
+    STATUS_PERKAWINAN_CHOICES = [
+        ('Belum Kawin', 'Belum Kawin'),
+        ('Kawin', 'Kawin'),
+        ('Duda', 'Duda'),
+        ('Janda', 'Janda'),
+    ]
+    status_perkawinan = forms.ChoiceField(
+        choices=STATUS_PERKAWINAN_CHOICES,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    # NPWP (Format XX.XXX.XXX.X-XXX.XXX)
+    def validate_npwp(value):
+        import re
+        if not re.match(r'^\d{2}\.\d{3}\.\d{3}\.\d{1}-\d{3}\.\d{3}$', value):
+            raise ValidationError("Format NPWP harus XX.XXX.XXX.X-XXX.XXX, contoh: 12.345.678.9-012.345")
+        return value
+
+    npwp = forms.CharField(
+        max_length=20,
+        validators=[validate_npwp],
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': '12.345.678.9-012.345'})
+    )
