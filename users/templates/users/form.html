@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form User</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .form-container { max-width: 500px; margin: auto; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+        button { background-color: blue; color: white; padding: 10px; width: 100%; border: none; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Form User</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
